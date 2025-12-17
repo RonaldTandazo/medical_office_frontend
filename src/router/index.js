@@ -16,6 +16,7 @@ import MedicationsDashboard from "@/views/Medications/MedicationsDashboard.vue";
 import MedicationsList from "@/views/Medications/MedicationsList.vue";
 import AccessDashboard from "@/views/Access/AccessDashboard.vue";
 import UsersAccess from "@/views/Access/UsersAccess.vue";
+import GenerateRecipe from "@/views/Patients/GenerateRecipe.vue";
 
 const routes = [
   {
@@ -90,6 +91,11 @@ const routes = [
   {
     path: "/patients/schedule_appointment",
     component: ScheduleAppoinment,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/patients/generate_recipe",
+    component: GenerateRecipe,
     meta: { requiresAuth: true },
   },
   {

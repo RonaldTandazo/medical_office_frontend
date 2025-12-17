@@ -64,7 +64,7 @@
         variant="tonal"
         block
         @click="registerUser"
-        :disabled="!isSingUpAvailable"
+        :disabled="!isSingUpAvailable || loading"
       >
         Sign Up
       </v-btn>

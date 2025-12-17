@@ -150,6 +150,7 @@
                                                             density="compact"
                                                             icon="mdi-receipt-text-arrow-right"
                                                             variant="solo"
+                                                            @click="navigateTo('/patients/generate_recipe')"
                                                         >
                                                         </v-btn>
                                                         <v-tooltip
@@ -436,6 +437,9 @@
                     this.triggerNotification()
                 }
             },
+            navigateTo(route){
+                this.$router.push(route)
+            }
         }
     }
 </script>

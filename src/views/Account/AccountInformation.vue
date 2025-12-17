@@ -50,12 +50,12 @@
                 {
                     title: 'Account Dashboard',
                     disabled: false,
-                    href: '/user'
+                    href: '/account'
                 },
                 {
                     title: 'Account Information',
                     disabled: true,
-                    href: '/user/user_information'
+                    href: '/account/account_information'
                 }
             ],
             showNotification: false,

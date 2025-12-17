@@ -43,8 +43,8 @@
         },
         methods: {
             navigateTo(route) {
-                const currentPath = this.$route.path;
-                this.$router.push(`${currentPath}/${route}`);
+                const targetPath = this.$route.path + route;
+                this.$router.push(`${targetPath}`);
             }
         }
     };

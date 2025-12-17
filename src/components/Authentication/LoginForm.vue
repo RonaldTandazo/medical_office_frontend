@@ -76,7 +76,7 @@
         variant="tonal"
         block
         @click="onLogin"
-        :disabled="!isLoginDisable"
+        :disabled="!isLoginDisable || loading"
       >
         Log In
       </v-btn>
