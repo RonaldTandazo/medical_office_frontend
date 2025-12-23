@@ -30,10 +30,11 @@
                             <v-row>
                                 <v-col cols="6" class="d-flex justify-start">
                                     <v-btn
-                                        prepend-icon="mdi-account-plus"
+                                        prepend-icon="mdi-medication"
                                         color="white"
                                         class="me-2"
                                         ref="modalBtn"
+                                        @click="isModalOpen = true; state='new'"
                                     >
                                         New Medication
                                     </v-btn>
@@ -129,12 +130,15 @@
                 </v-card>
             </v-row>
         </v-container>
+
+        <MedicationModal v-model="isModalOpen" @close="isModalOpen = false" :isModalOpen="isModalOpen" :state="state" :record="record" @save="saveMedication"/>
     </v-app>
 </template>
 
 <script>
     import ToolBar from '../../components/General/ToolBar.vue';
     import AdaptativeBreadcrumbs from '../../components/General/AdaptativeBreadcrumbs.vue';
+    import MedicationModal from '../../components/Medications/MedicationModal.vue';
     import { medicationService } from '@/services/medicationService';
 
     export default {
@@ -142,6 +146,7 @@
         components: {
             ToolBar,
             AdaptativeBreadcrumbs,
+            MedicationModal
         },
         data: () => ({
             record: null,
@@ -227,8 +232,6 @@
                                 })
                             }
                         });
-
-                        console.log(this.medications)
                     }
                 } catch (error) {
                     this.$emit('notify', {message: "Error While Searching", ok: false, show: true});
@@ -238,7 +241,61 @@
             },
             cleanFilters(){
                 this.medication = null
-            }
+            },
+            async saveMedication(data) {
+                try{
+                    if(data.medication != null){
+                        const medication = data.medication
+                        // let response = null
+                        const found_medication = this.medications.find(m => m.medication_id === medication.medication_id);
+
+                        if(data.state == "new"){
+                            if(found_medication){
+                                return null
+                            }
+
+                            this.medications.push({
+                                index: this.medications.length + 1,
+                                medication_id: null,
+                                medication: medication.medication,
+                                type: medication.type.label,
+                                diseases: medication.diseases.map((d) => d.label),
+                                laboratories: [{
+                                    laboratory_id: medication.laboratory.value,
+                                    laboratory: medication.laboratory.label,
+                                    content: [{
+                                        index: 1,
+                                        medication_laboratory_id: null,
+                                        grams: medication.grams,
+                                        price: medication.price,
+                                        unit: medication.unit.label
+                                    }]
+                                }]
+                            });
+                            this.totalItems += 1 
+                        }else{
+                            console.log(found_medication)
+                        }
+
+                        // this.notificationMessage = {
+                        //     message: response.message, 
+                        //     ok: true, 
+                        //     show: true
+                        // }
+                    }
+                }catch (error) {
+                    // this.notificationMessage = {
+                    //     message:error.response.data.message, 
+                    //     ok:false, 
+                    //     show: true
+                    // }
+                    console.log(error)
+                } finally {
+                    if(this.notificationMessage && this.notificationMessage.show){
+                        this.triggerNotification()
+                    }
+                }
+            },
         }
     }
 </script>

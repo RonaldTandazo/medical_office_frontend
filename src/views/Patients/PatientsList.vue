@@ -184,9 +184,9 @@
                 </v-card>
             </v-row>
         </v-container>
-        <v-dialog v-model="isModalOpen" max-width="600px">
-            <PatientModal v-model="isModalOpen" @close="isModalOpen = false" @save="savePatientInformation" :state="state" :genders="genders" :record="record"/>
-        </v-dialog>
+
+        <PatientModal v-model="isModalOpen" @close="isModalOpen = false" @save="savePatientInformation" :isModalOpen="isModalOpen" :state="state" :genders="genders" :record="record"/>
+        
         <v-dialog v-model="dialogInactivate" max-width="500px">
             <v-card>
                 <v-card-title class="text-h6">Are you sure to unlink this patient?</v-card-title>

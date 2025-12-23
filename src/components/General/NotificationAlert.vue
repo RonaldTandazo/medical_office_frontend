@@ -1,10 +1,8 @@
 <template>
     <v-alert
       v-if="info.show"
-      v-model="alert"
       class="custom-notification"
       closable
-      border="start"
       :icon="info.ok ? '$success':'$error'"
       :title="info.message"
       :color="info.ok ? 'success':'red-accent-2'"
@@ -25,12 +23,12 @@
 </script>
 
 <style scoped>
-.custom-notification {
-  background-color: white;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 300px;
-  z-index: 9999; /* Asegúrate de que esté por encima de otros elementos */
-}
+  .custom-notification {
+    background-color: white;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    max-width: 500px;
+    z-index: 9999;
+  }
 </style>

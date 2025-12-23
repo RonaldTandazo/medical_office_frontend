@@ -17,6 +17,9 @@ import MedicationsList from "@/views/Medications/MedicationsList.vue";
 import AccessDashboard from "@/views/Access/AccessDashboard.vue";
 import UsersAccess from "@/views/Access/UsersAccess.vue";
 import GenerateRecipe from "@/views/Patients/GenerateRecipe.vue";
+import MedicationUpload from "@/views/Provider/MedicationUpload.vue"
+import ProviderDashboard from "@/views/Provider/ProviderDashboard.vue";
+import ProviderUploads from "@/views/Provider/ProviderUploads.vue";
 
 const routes = [
   {
@@ -36,7 +39,7 @@ const routes = [
         path: "signup",
         name: "SignUp",
         component: SignUpForm,
-      },
+      }
     ],
   },
   {
@@ -64,6 +67,7 @@ const routes = [
   },
   {
     path: "/home",
+    name: 'Home',
     component: DashboardPage,
     meta: { requiresAuth: true },
   },
@@ -119,9 +123,23 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/provider/upload",
+    component: MedicationUpload
+  },
+  {
+    path: "/provider",
+    component: ProviderDashboard,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/provider/uploads",
+    component: ProviderUploads,
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/:pathMatch(.*)*",
     redirect: "/",
-  },
+  }
 ];
 
 const router = createRouter({

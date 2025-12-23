@@ -4,9 +4,10 @@
             prominent
         >
             <v-toolbar color="blue-accent-2">
-                <v-app-bar-nav-icon density="comfortable" class="ms-3" @click.stop="drawer = !drawer" variant="text"></v-app-bar-nav-icon>
+                <v-app-bar-nav-icon v-if="logged" density="comfortable" class="ms-3" @click.stop="drawer = !drawer" variant="text"></v-app-bar-nav-icon>
+                <h1  v-if="!logged && pageTitle" class="ms-3">{{ pageTitle }}</h1>
                 <v-spacer></v-spacer>
-                <UserActions class="mr-5"/>
+                <UserActions v-if="logged" class="mr-5"/>
             </v-toolbar>
         </v-app-bar>
         <v-navigation-drawer
@@ -39,6 +40,16 @@
 
     export default {
         name:"ToolBar",
+        props:{
+            logged: {
+                type: Boolean,
+                default: true
+            },
+            pageTitle: {
+                type: String,
+                default: null
+            }
+        },
         components: {
             UserActions
         },
