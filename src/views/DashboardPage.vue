@@ -207,10 +207,8 @@
         methods: {
             async getDashboardInfo(){
                 this.loading = true;
-
                 try {
                     const response = await dashboardService.getDeshboardInfo();
-                    console.log(response)
                     if(response.success){
                         this.info = response.data;
                         this.alerts = this.info.alerts;

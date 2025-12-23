@@ -59,7 +59,7 @@
         }),
 
         computed: {
-            ...mapGetters('auth', ['getPermissions', 'getMenus']),
+            ...mapGetters('auth', ['getPermissions'])
         },
 
         mounted() {

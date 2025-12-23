@@ -29,7 +29,7 @@
                 <v-divider></v-divider>
 
                 <v-list>
-                    <v-list-item
+                    <!-- <v-list-item
                         key="1"
                         value="1"
                         class="custom-icon"
@@ -44,14 +44,14 @@
                                 color="blue"
                             ></v-icon>
                         </template>
-                    </v-list-item>
+                    </v-list-item> -->
                     <v-list-item
                         key="2"
                         value="2"
                         @click="onLogout"
                     >
                         <v-list-item-title>
-                            Logout
+                            Cerrar Sesión
                         </v-list-item-title>
                         <template v-slot:append>
                             <v-icon

@@ -12,11 +12,11 @@
       max-width="448"
       rounded="lg"
     >
-      <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Account</div>
+      <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">E-mail</div>
       <v-text-field
         v-model='email'
         density="compact"
-        placeholder="Email address"
+        placeholder="Dirección E-mail"
         prepend-inner-icon="mdi-email-outline"
         variant="outlined"
         :disabled="disabled"
@@ -24,12 +24,12 @@
       ></v-text-field>
 
       <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-        Password
+        Contraseña
         <router-link
           class="text-caption text-decoration-none text-blue"
           to="/recovery"
         >
-          Forgot login password?
+          Olvidaste la contraseña?
         </router-link>
       </div>
       <v-text-field
@@ -37,7 +37,7 @@
         :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
         :type="visible ? 'text' : 'password'"
         density="compact"
-        placeholder="Enter your password"
+        placeholder="Ingresa tu Contraseña"
         prepend-inner-icon="mdi-lock-outline"
         variant="outlined"
         @click:append-inner="visible = !visible"
@@ -45,7 +45,7 @@
         :loading="loading"
       ></v-text-field>
 
-      <div v-if="showRoles" class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Role</div>
+      <div v-if="showRoles" class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Rol</div>
       <v-select
         clearable
         v-if="showRoles"
@@ -53,12 +53,12 @@
         :items="roles"
         item-title="name"
         item-value="role_id"
-        placeholder="Select a role"
+        placeholder="Seleccione un rol"
         variant="solo"
         return-object
       ></v-select>
 
-      <v-card
+      <!-- <v-card
         class="mb-12"
         color="surface-variant"
         variant="tonal"
@@ -66,10 +66,9 @@
         <v-card-text class="text-medium-emphasis text-caption">
           Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
         </v-card-text>
-      </v-card>
+      </v-card> -->
 
       <v-btn
-        v-model="login_btn"
         class="mb-8"
         color="blue"
         size="large"
@@ -78,7 +77,7 @@
         @click="onLogin"
         :disabled="!isLoginDisable || loading"
       >
-        Log In
+        Iniciar Sesión
       </v-btn>
 
       <v-card-text class="text-center">
@@ -86,7 +85,7 @@
           class="text-blue text-decoration-none"
           to="/signup"
         >
-          Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+          Regístrate Aquí <v-icon icon="mdi-chevron-right"></v-icon>
         </router-link>
       </v-card-text>
     </v-card>
@@ -113,7 +112,7 @@
     }),
 
     computed: {
-      ...mapGetters('auth', ['getUserData', 'getPermissions', 'getMenus']),
+      ...mapGetters('auth', ['getUserData']),
       isLoginDisable(){
         return this.email != '' && this.password != '' && this.selectedRole != null;
       }
@@ -137,6 +136,7 @@
 
     methods: {   
       ...mapActions('auth', ['login', 'logout']),
+      ...mapActions('location', ['located']),
 
       async getUserRoles(email) {
         try {
@@ -172,9 +172,9 @@
             const decodedToken = jwtDecode(token);
             const userData = decodedToken.user_data;
             const permissions = decodedToken.permissions || [];
-            const menus = decodedToken.menus || [];
             
-            this.login({ userData, permissions, menus });
+            this.located(permissions.find(menu => menu.menu_id == 6))
+            this.login({ userData, permissions });
 
             this.$router.push('/home');
           }

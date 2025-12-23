@@ -1,11 +1,12 @@
 export default {
     namespaced: true,
     state: {
-        locatedMenu: {}
+        locatedMenu: JSON.parse(localStorage.getItem('locatedMenu')) || {}
     },
     mutations: {
         setLocatedMenu(state, menu) {
             state.locatedMenu = menu;
+            localStorage.setItem('locatedMenu', JSON.stringify(menu));
         },
     },
     actions:{
