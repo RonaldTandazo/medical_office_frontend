@@ -15,14 +15,14 @@
       <div
         class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
       >
-        New Password
+        Nueva Contraseña
       </div>
       <v-text-field
         v-model="new_password"
         :append-inner-icon="visible_password ? 'mdi-eye-off' : 'mdi-eye'"
         :type="visible_password ? 'text' : 'password'"
         density="compact"
-        placeholder="Enter your new password"
+        placeholder="Ingresa tu nueva contraseña"
         prepend-inner-icon="mdi-lock-outline"
         variant="outlined"
         @click:append-inner="visible_password = !visible_password"
@@ -34,14 +34,14 @@
       <div
         class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
       >
-        Confirm New Password
+        Confirmar Nueva Contraseña
       </div>
       <v-text-field
         v-model="confirm_password"
         :append-inner-icon="visible_confirm ? 'mdi-eye-off' : 'mdi-eye'"
         :type="visible_confirm ? 'text' : 'password'"
         density="compact"
-        placeholder="Confirm your new password"
+        placeholder="Confirma tu nueva contraseña"
         prepend-inner-icon="mdi-lock-outline"
         variant="outlined"
         @click:append-inner="visible_confirm = !visible_confirm"
@@ -57,9 +57,9 @@
         variant="tonal"
         block
         @click="recoverPassword"
-        :disabled="!isPasswordValid"
+        :disabled="!isPasswordValid || loading"
       >
-        Reset
+        Restablecer
       </v-btn>
     </v-card>
   </div>
@@ -97,7 +97,7 @@ export default {
           this.new_password === this.confirm_password
             ? true
             : this.$emit("notify", {
-                message: "Inputs Password Don't Match",
+                message: "Las Contraseñas No Coinciden",
                 ok: false,
                 show: true,
               });
@@ -105,6 +105,9 @@ export default {
     },
 
     async recoverPassword() {
+      this.loading = true;
+      this.disabled = true;
+
       try {
         const data = {
           newPassword: this.new_password,
@@ -114,8 +117,8 @@ export default {
         const response = await authService.resetPassword(this.token, data);
 
         const message = !response.success
-          ? "This Link has Expired or been used"
-          : "Your Password has been reset successfully";
+          ? "El Link ha expirado o ya ha sido usado"
+          : "Tu Contraseña ha sido restablecida exitosamente";
         const state = response.code;
 
         this.$emit("recover-success", {

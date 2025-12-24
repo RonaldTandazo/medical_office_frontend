@@ -1,3 +1,5 @@
+import store from '@/store'
+import { isTokenExpired } from '@/utils/helper'
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../views/Authentication/AuthenticationPage.vue";
 import LoginForm from "../components/Authentication/LoginForm.vue";
@@ -148,16 +150,29 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const token = localStorage.getItem("jwt");
-    if (!token) {
-      next({ name: "LoginForm" });
-    } else {
-      next();
-    }
-  } else {
-    next();
+  const token = store.getters['auth/getToken']
+  const isAuth = store.getters['auth/isAuthenticated']
+
+  if (token && isTokenExpired(token)) {
+    store.dispatch('auth/logout')
+    return next({ name: 'LoginForm' })
   }
+
+  if (
+    (to.name === 'LoginForm' || to.name === 'SignUp') &&
+    isAuth &&
+    token
+  ) {
+    return next({ name: 'Home' })
+  }
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isAuth) {
+      return next({ name: 'LoginForm' })
+    }
+  }
+
+  next();
 });
 
 export default router;

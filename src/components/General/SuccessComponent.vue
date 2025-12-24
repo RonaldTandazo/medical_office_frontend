@@ -30,7 +30,7 @@
         rounded
         @click="done"
       >
-        Login
+        Inicia Sesión
       </v-btn>
     </div>
   </v-sheet>

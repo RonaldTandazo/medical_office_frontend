@@ -1,38 +1,48 @@
 export default {
     namespaced: true,
+
     state: {
-        userData: JSON.parse(localStorage.getItem('userData')) || {},
+        token: localStorage.getItem('jwt') || null,
+        userData: JSON.parse(localStorage.getItem('userData')) || null,
         permissions: JSON.parse(localStorage.getItem('permissions')) || [],
     },
+
     mutations: {
-        setUserData(state, userData) {
-            state.userData = userData;
-            localStorage.setItem('userData', JSON.stringify(userData));
+        setAuthData(state, { token, userData, permissions }) {
+            state.token = token
+            state.userData = userData
+            state.permissions = permissions
+
+            localStorage.setItem('jwt', token)
+            localStorage.setItem('userData', JSON.stringify(userData))
+            localStorage.setItem('permissions', JSON.stringify(permissions))
         },
-        setPermissions(state, permissions) {
-            state.permissions = permissions;
-            localStorage.setItem('permissions', JSON.stringify(permissions));
-        },
+
         clearAuthData(state) {
-            state.userData = {};
-            state.permissions = [];
-            localStorage.removeItem('userData');
-            localStorage.removeItem('permissions');
-            localStorage.removeItem('jwt');
+            state.token = null
+            state.userData = null
+            state.permissions = []
+
+            localStorage.removeItem('jwt')
+            localStorage.removeItem('userData')
+            localStorage.removeItem('permissions')
         },
     },
+
     actions: {
-        login({ commit }, { userData, permissions }) {
-            commit('setUserData', userData);
-            commit('setPermissions', permissions);
+        login({ commit }, payload) {
+            commit('setAuthData', payload)
         },
+
         logout({ commit }) {
-            commit('clearAuthData');
+            commit('clearAuthData')
         },
     },
+
     getters: {
+        isAuthenticated: (state) => !!state.token,
+        getToken: (state) => state.token,
         getUserData: (state) => state.userData,
         getPermissions: (state) => state.permissions,
     },
-};
-  
+}

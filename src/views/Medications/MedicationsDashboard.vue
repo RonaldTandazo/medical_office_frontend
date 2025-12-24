@@ -33,7 +33,7 @@
         data: () => ({
             routes: [
                 {
-                    title: 'Home',
+                    title: 'Dashboard',
                     disabled: false,
                     href: '/home'
                 },

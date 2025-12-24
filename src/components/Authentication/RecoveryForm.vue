@@ -12,12 +12,12 @@
             max-width="448"
             rounded="lg"
         >
-        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Account</div>
+        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">E-mail</div>
         <v-text-field
             clearable
             v-model='email'
             density="compact"
-            placeholder="Email address"
+            placeholder="Dirección E-mail"
             prepend-inner-icon="mdi-email-outline"
             variant="outlined"
             :disabled="disabled"
@@ -31,9 +31,9 @@
             variant="tonal"
             block
             @click="recover_password"
-            :disabled="!isRecoverAvailable"
+            :disabled="!isRecoverAvailable || loading"
         >
-            Recover Password
+            Recuperar Contraseña
         </v-btn>
         
       </v-card>
@@ -52,7 +52,7 @@
 
         computed: {
             isRecoverAvailable(){
-                return this.email !== ''
+                return this.email !== '';
             }
         },
   
@@ -62,14 +62,14 @@
                 this.loading = true
 
                 try {
-                    const response = await authService.send_recover_email({email: this.email});
+                    const response = await authService.sendRecoverEmail({email: this.email});
 
                     if(!response.success){
                         this.$emit('notify', {message: response.message, ok: response.success, show: true});
                         return null
                     }
 
-                    this.$emit('recover-success', {tittle: response.message, message: "Check yor email inbox, there's a link to reset your password", state: 200});
+                    this.$emit('recover-success', {tittle: response.message, message: "Se ha enviado un correo a tu E-mail para que restablezcas tu contraseña", state: 200});
 
                 } catch (error) {
                     this.$emit('notify', {message: error.message, ok:false, show: true});

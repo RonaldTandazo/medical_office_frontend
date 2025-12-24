@@ -179,7 +179,7 @@
             this.$router.push('/home');
           }
         } catch (error) {
-          this.$emit('notify', {message:"Login Failed", ok:false, show: true});
+          this.$emit('notify', {message:"Inicio de Sesión Fallido", ok:false, show: true});
         } finally {
           this.loading = false
           this.disabled = false
