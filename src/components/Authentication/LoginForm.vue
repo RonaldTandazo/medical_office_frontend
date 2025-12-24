@@ -167,14 +167,12 @@
 
           if (response.data) {
             const token = response.data.token
-            localStorage.setItem('jwt', token);
-
             const decodedToken = jwtDecode(token);
             const userData = decodedToken.user_data;
             const permissions = decodedToken.permissions || [];
             
             this.located(permissions.find(menu => menu.menu_id == 6))
-            this.login({ userData, permissions });
+            this.login({ userData, permissions, token });
 
             this.$router.push('/home');
           }
