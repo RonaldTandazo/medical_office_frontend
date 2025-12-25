@@ -66,7 +66,8 @@
         }),
 
         computed: {
-            ...mapGetters('auth', ['getPermissions'])
+            ...mapGetters('auth', ['getPermissions']),
+            ...mapGetters('location', ['getLocatedMenu'])
         },
 
         mounted() {
@@ -85,7 +86,7 @@
             ...mapActions('location', ['located']),
 
             isActive(item) {
-                return this.$route.path === item.route
+                return item.menu_id == this.getLocatedMenu.menu_id
             },
 
             navigateTo(item) {
