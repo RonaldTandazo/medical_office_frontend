@@ -1,10 +1,18 @@
 <template>
     <div>
-        <v-img
-            class="mx-auto my-6"
-            max-width="228"
-            src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
-        ></v-img>
+        <div class="text-center my-8">
+            <v-icon
+                size="56"
+                color="blue"
+                class="mb-2"
+            >
+                mdi-pill-multiple
+            </v-icon>
+
+            <div class="text-h4 font-weight-bold">
+                Recep<span class="text-blue">Sync</span>
+            </div>
+        </div>
   
         <v-card
             class="mx-auto pa-12 pb-8"

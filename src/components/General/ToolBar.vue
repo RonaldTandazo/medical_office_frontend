@@ -19,15 +19,22 @@
                 <v-list-item
                     v-for="item in items"
                     :key="item.menu_id"
+                    :active="isActive(item)"
                     @click="navigateTo(item)"
+                    class="drawer-item"
                 >
                     <template v-slot:prepend>
                         <v-icon
                             :icon="item.icon"
-                            color="blue"
+                            :color="isActive(item) ? 'white' : 'blue'"
                         ></v-icon>
-                        <v-list-item-title class="ms-5">{{ item.title }}</v-list-item-title>
                     </template>
+
+                    <v-list-item-title
+                        :class="{ 'text-white': isActive(item) }"
+                    >
+                        {{ item.title }}
+                    </v-list-item-title>
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
@@ -77,6 +84,10 @@
         methods: {
             ...mapActions('location', ['located']),
 
+            isActive(item) {
+                return this.$route.path === item.route
+            },
+
             navigateTo(item) {
                 this.located(item);
                 this.$router.push(item.route);
@@ -85,3 +96,19 @@
         }
     }
 </script>
+
+<style scoped>
+    .drawer-item {
+        border-radius: 8px;
+        margin: 4px 8px;
+        transition: background-color 0.2s ease;
+    }
+
+    .drawer-item.v-list-item--active {
+        background-color: #448AFF;
+    }
+
+    .drawer-item.v-list-item--active:hover {
+        background-color: #1565c0;
+    }
+</style>

@@ -19,10 +19,20 @@
             <v-card min-width="300">
                 <v-list>
                     <v-list-item
-                        prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
-                        :subtitle="userInfo ? userInfo.email+' | '+userInfo.role:''"
-                        :title="userInfo ? userInfo.username:''"
+                        :subtitle="userInfo ? userInfo.email + ' | ' + userInfo.role : ''"
+                        :title="userInfo ? userInfo.username : ''"
                     >
+                        <template #prepend>
+                            <v-avatar v-if="userInfo?.avatar" size="40">
+                                <v-img :src="userInfo.avatar" alt="Avatar" />
+                            </v-avatar>
+
+                            <v-avatar v-else color="blue-lighten-4" size="40">
+                                <v-icon color="blue-darken-2">
+                                    mdi-account
+                                </v-icon>
+                            </v-avatar>
+                        </template>
                     </v-list-item>
                 </v-list>
 
