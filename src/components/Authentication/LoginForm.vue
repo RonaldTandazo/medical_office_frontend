@@ -64,6 +64,7 @@
         placeholder="Seleccione un rol"
         variant="solo"
         return-object
+        :disabled="loading"
       ></v-select>
 
       <!-- <v-card

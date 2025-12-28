@@ -55,7 +55,8 @@ import {
     VProgressLinear,
     VFileInput,
     VOverlay,
-    VProgressCircular
+    VProgressCircular,
+    VSnackbar
 } from 'vuetify/components';
 import { VCalendar, VTimePicker } from 'vuetify/lib/labs/components.mjs';
 
@@ -116,7 +117,8 @@ export default createVuetify({
         VProgressLinear,
         VFileInput,
         VOverlay,
-        VProgressCircular
+        VProgressCircular,
+        VSnackbar
     },
     icons: {
         defaultSet: 'mdi',
