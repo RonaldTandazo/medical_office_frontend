@@ -19,7 +19,8 @@
     "vue-router": "^4.4.3",
     "vuetify": "^3.7.0",
     "vuex": "^4.0.2",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "xlsx-js-style": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
